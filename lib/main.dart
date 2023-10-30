@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:comicsduka/constants/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:comicsduka/screens/auth_ui/login/login.dart';
+import 'package:comicsduka/screens/auth_ui/welcome/welcome.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +14,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      
       debugShowCheckedModeBanner: false,
       title: 'ComicsDuka',
-      home: Login(),
+      theme: themeData,
+      home: Welcome(),
     );
   }///23:45
 }
