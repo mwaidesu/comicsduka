@@ -1,6 +1,7 @@
 import 'package:comicsduka/constants/asset_images.dart';
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/screens/auth_ui/login/login.dart';
+import 'package:comicsduka/screens/auth_ui/sign_up/sign_up.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,7 +68,9 @@ class Welcome extends StatelessWidget {
           ),
           PrimaryButton(
             title: "Sign Up",
-            onPressed: () {},
+            onPressed: () {
+              Routes.instance.push(widget: const SignUp(), context: context);
+            },
           ),
         ],
       ),

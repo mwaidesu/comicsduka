@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_const
 
+import 'package:comicsduka/constants/routes.dart';
+import 'package:comicsduka/screens/auth_ui/sign_up/sign_up.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,12 +81,12 @@ class _LoginState extends State<Login> {
             ),
             Center(
                 child: CupertinoButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Routes.instance.push(widget: SignUp(), context: context);
+                    },
                     child: Text(
                       "Create an Account",
-                      style:TextStyle(
-                        color: Theme.of(context).primaryColor
-                      ),
+                      style: TextStyle(color: Theme.of(context).primaryColor),
                     )))
           ],
         ),
