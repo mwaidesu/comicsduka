@@ -1,4 +1,8 @@
 import 'package:comicsduka/constants/asset_images.dart';
+import 'package:comicsduka/constants/routes.dart';
+import 'package:comicsduka/screens/auth_ui/login/login.dart';
+import 'package:comicsduka/widgets/primary_button/primary_button.dart';
+import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,23 +18,9 @@ class Welcome extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "ComicsDuka",
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(
-            // height: kToolbarHeight +12,
-            height: 12,
-          ),
-          const Text(
-            "Get your favorite comics",
-            style: TextStyle(
-              fontSize: 18.0,
-            ),
-          ),
+          TopTitles(
+              title: "ComicsDuka", subtitle: "Your One Stop Shop For Comics"),
+
           Center(
               child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -63,15 +53,21 @@ class Welcome extends StatelessWidget {
           //   ],
           // ),
           const SizedBox(
+            height: 30.0,
+          ),
+          PrimaryButton(
+            title: "Login",
+            onPressed: () {
+              Routes.instance.push(widget: const Login(), context: context);
+            },
+          ),
+
+          const SizedBox(
             height: 18.0,
           ),
-          SizedBox(
-            height: 45,
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text("Login"),
-            ),
+          PrimaryButton(
+            title: "Sign Up",
+            onPressed: () {},
           ),
         ],
       ),
