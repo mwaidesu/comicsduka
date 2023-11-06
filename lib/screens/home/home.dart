@@ -38,27 +38,67 @@ class Home extends StatelessWidget {
             ),
           ),
 
+          // SingleChildScrollView(
+          //   scrollDirection: Axis.horizontal,
+          //   child: Row(children: 
+          //     categoriesList.map((e) => 
+          //     Padding(
+          //     padding: const EdgeInsets.only(left: 8.0),
+          //     child: Card(
+          //       color: Colors.white,
+          //       elevation: 13.0,
+          //       shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(20.0)),
+          //       child: Container(
+          //         height: 100,
+          //         width: 100,
+          //         child: Image.network(e),
+          //       ),
+          //     ),
+          //   ),
+          //   ).toList(),
+          //   ),
+          // ),
+
+
           SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(children: 
-              categoriesList.map((e) => 
+  scrollDirection: Axis.horizontal,
+  child: Row(
+    children: categoriesList.asMap().entries.map((entry) {
+      final int index = entry.key;
+      final String imageUrl = entry.value;
+
+      return Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: Card(
+          color: Colors.white,
+          elevation: 3.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 130,
+                width: 150,
+                child: Image.network(imageUrl),
+              ),
+              // SizedBox(height: 8.0), // Add spacing between the image and text
               Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Card(
-                color: Colors.white,
-                elevation: 13.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  child: Image.network(e),
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: Text(
+                  titles[index],
+                  style: TextStyle(fontSize: 16.0),
                 ),
               ),
-            ),
-            ).toList(),
-            ),
+            ],
           ),
+        ),
+      );
+    }).toList(),
+  ),
+)
+
           
         ],
       ),
@@ -77,4 +117,12 @@ List<String> categoriesList = [
 
 
 
+];
+
+List<String> titles = [
+  'DC Comics',
+  'Marvel',
+  'Manga',
+  'Webtoons',
+  'Indie',
 ];
