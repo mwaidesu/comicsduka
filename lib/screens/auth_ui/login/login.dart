@@ -37,6 +37,7 @@ class _LoginState extends State<Login> {
               height: 45.0,
             ),
             TextFormField(
+              controller: email,
               decoration: const InputDecoration(
                 hintText: "Enter Your Email",
                 prefixIcon: Icon(
@@ -49,6 +50,7 @@ class _LoginState extends State<Login> {
               height: 12.0,
             ),
             TextFormField(
+              controller: password,
               obscureText: isShowPassword,
               decoration: InputDecoration(
                 hintText: "Enter Your Password",
@@ -76,6 +78,7 @@ class _LoginState extends State<Login> {
               title: "Login",
               onPressed: () async {
                 bool isValidated = loginVaildation(email.text, password.text);
+                // print(email);
 
                 if (isValidated) {
                   bool isLoggedIn = await FirebaseAuthHelper.instance
@@ -85,7 +88,7 @@ class _LoginState extends State<Login> {
                     Routes.instance
                         .pushAndRemoveUntil(widget: const Home(), context: context);
                   }
-                }
+                }            
               },
             ),
             const SizedBox(

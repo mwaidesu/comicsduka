@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
+import 'package:comicsduka/screens/auth_ui/sign_up/sign_up.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +13,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
+        // scrollDirection: Axis.vertical,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -74,6 +76,7 @@ class Home extends StatelessWidget {
               height: 12.0,
             ),
             GridView.builder(
+              physics: ScrollPhysics(),
               shrinkWrap: true,
               itemCount: bestProducts.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -115,30 +118,36 @@ class Home extends StatelessWidget {
 
                 // );
 
-                return Card(
-                  child: Hero(
-                      tag: singleProduct.name,
-                      child: Material(
-                        child: InkWell(
-                          onTap: () {
-
-                          },
-                          child: GridTile(
-                              footer: Container(
-                                color: Colors.white70,
-                                child: ListTile(
-                                  leading: Text(
-                                    singleProduct.name,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Card(
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                    child: Hero(
+                        tag: singleProduct.id,
+                        child: Material(
+                          child: InkWell(
+                            onTap: () {
+                              Routes.instance.push(widget: SignUp(), context: context);
+                            },
+                            child: GridTile(
+                                footer: Container(
+                                  color: Colors.white70,
+                                  child: ListTile(
+                                    leading: Text(
+                                      singleProduct.name,
+                                      style:
+                                          TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    title: Text("Ksh. ${singleProduct.price}"),
+                                    subtitle: Text(""),
                                   ),
-                                  title: Text("Ksh. ${singleProduct.price}"),
-                                  subtitle: Text(""),
                                 ),
-                              ),
-                              child: Image.network(singleProduct.image)),
-                        ),
-                      )),
+                                child: Image.network(singleProduct.image)),
+                          ),
+                        )),
+                  ),
                 );
               },
             ),
