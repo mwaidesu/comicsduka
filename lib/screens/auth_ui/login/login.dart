@@ -1,7 +1,10 @@
-// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_const, use_build_context_synchronously
 
+import 'package:comicsduka/constants/constants.dart';
 import 'package:comicsduka/constants/routes.dart';
+import 'package:comicsduka/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:comicsduka/screens/auth_ui/sign_up/sign_up.dart';
+import 'package:comicsduka/screens/home/home.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +18,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
   bool isShowPassword = true;
   @override
   Widget build(BuildContext context) {
@@ -64,11 +70,23 @@ class _LoginState extends State<Login> {
               ),
             ),
             const SizedBox(
-              height: 12.0,
+              height: 36.0,
             ),
             PrimaryButton(
               title: "Login",
-              onPressed: () {},
+              onPressed: () async {
+                bool isValidated = loginVaildation(email.text, password.text);
+
+                if (isValidated) {
+                  bool isLoggedIn = await FirebaseAuthHelper.instance
+                      .login(email.text, password.text, context);
+
+                  if (isLoggedIn) {
+                    Routes.instance
+                        .pushAndRemoveUntil(widget: const Home(), context: context);
+                  }
+                }
+              },
             ),
             const SizedBox(
               height: 12.0,

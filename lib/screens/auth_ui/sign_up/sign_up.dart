@@ -1,11 +1,15 @@
-// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_const, use_build_context_synchronously
 
+import 'package:comicsduka/constants/constants.dart';
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/screens/auth_ui/login/login.dart';
+import 'package:comicsduka/screens/home/home.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -16,6 +20,11 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool isShowPassword = true;
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController name = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,14 +38,16 @@ class _SignUpState extends State<SignUp> {
               // Icon(Icons.arrow_back),
               const TopTitles(
                   title: "Create Account", subtitle: "Welcome To ComicsDuka"),
-              
+
               const SizedBox(
                 height: 45.0,
               ),
               TextFormField(
+                controller: name,
                 decoration: const InputDecoration(
                   hintText: "Enter Your Name",
-                  prefixIcon: Icon(Icons.person_2_outlined,
+                  prefixIcon: Icon(
+                    Icons.person_2_outlined,
                   ),
                 ),
               ),
@@ -44,20 +55,21 @@ class _SignUpState extends State<SignUp> {
                 height: 12.0,
               ),
               TextFormField(
+                controller: email,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   hintText: "Enter Your Email",
-      
                   prefixIcon: Icon(
                     Icons.email_outlined,
                   ),
                 ),
               ),
-      
+
               const SizedBox(
                 height: 12.0,
               ),
               TextFormField(
+                controller: phone,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: "Enter Your Phone Number",
@@ -70,6 +82,7 @@ class _SignUpState extends State<SignUp> {
                 height: 12.0,
               ),
               TextFormField(
+                controller: password,
                 obscureText: isShowPassword,
                 decoration: InputDecoration(
                   hintText: "Enter Your Password",
@@ -91,11 +104,24 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               const SizedBox(
-                height: 12.0,
+                height: 36.0,
               ),
               PrimaryButton(
-                title: "Sign Up",
-                onPressed: () {},
+                title: "Create an Account",
+                onPressed: () async {
+                  bool isValidated = signUpVaildation(
+                      email.text, password.text, name.text, phone.text);
+
+                  if (isValidated) {
+                    bool isLoggedIn = await FirebaseAuthHelper.instance
+                        .signUp (email.text, password.text, context);
+
+                    if (isLoggedIn) {
+                      Routes.instance.pushAndRemoveUntil(
+                          widget: const Home(), context: context);
+                    }
+                  }
+                },
               ),
               const SizedBox(
                 height: 12.0,

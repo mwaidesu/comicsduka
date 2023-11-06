@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "365219531327",
+    "project_id": "comicsduka",
+    "storage_bucket": "comicsduka.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365219531327:android:df35323d3ff099b2c8c68a",
+        "android_client_info": {
+          "package_name": "com.example.comicsduka"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUrSGB7GyfsBSpfSvT96oU_mcLV80EE0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
