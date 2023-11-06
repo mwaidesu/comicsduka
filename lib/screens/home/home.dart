@@ -65,7 +65,7 @@ class Home extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: const Text(
-              "Best Comics",
+              "Popular Comics",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
           ),
