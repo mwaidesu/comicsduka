@@ -30,7 +30,7 @@ class FirebaseFirestoreHelper {
   Future<List<ProductModel>> getBestProducts() async {
     try {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await _firebaseFirestore.collectionGroup("producst").get();
+          await _firebaseFirestore.collectionGroup("products").get();
 
       List<ProductModel> productModelList = querySnapshot.docs
           .map((e) => ProductModel.fromJson(e.data()))

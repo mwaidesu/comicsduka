@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:ui';
+
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:comicsduka/models/category_model/category_model.dart';
@@ -44,6 +46,12 @@ class _HomeState extends State<Home> {
   }
 
   Widget build(BuildContext context) {
+
+    //to set height of comic cards
+    var size = MediaQuery.of(context).size;
+    final double itemHeight = (size.height - kToolbarHeight - 24) /2.5;
+    final double itemWidth = size.width / 2;
+
     return Scaffold(
       body: isLoading
           ? Center(
@@ -129,10 +137,12 @@ class _HomeState extends State<Home> {
                       primary: false,
                       itemCount: productModelList.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                        crossAxisCount: 3,
+                        childAspectRatio: (itemWidth / itemHeight),
                       ),
                       itemBuilder: (ctx, index) {
                         ProductModel singleProduct = productModelList[index];
+                        
                         // return Container(
                         // decoration: BoxDecoration(
                         //   color: Colors.grey[100],
@@ -182,21 +192,26 @@ class _HomeState extends State<Home> {
                                           widget: SignUp(), context: context);
                                     },
                                     child: GridTile(
-                                        footer: Container(
-                                          color: Colors.white70,
-                                          child: ListTile(
-                                            leading: Text(
-                                              singleProduct.name,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            title: Text(
-                                                "${singleProduct.price}"),
-                                            subtitle: Text(""),
-                                          ),
-                                        ),
+                                        // footer: Container(
+                                        //   color: Colors.white70,
+                                          
+                                        //   child: ListTile(
+                                        //     leading: Text(
+                                        //       singleProduct.name,
+                                        //       style: TextStyle(
+                                        //           fontWeight: FontWeight.bold),
+                                        //     ),
+                                        //     title: Text(
+                                        //         "${singleProduct.price}"),
+                                        //     subtitle: Text(""),
+                                        //   ),
+                                        // ),
                                         child:
-                                            Image.network(singleProduct.image)),
+                                            Image.network(singleProduct.image,
+                                            fit: BoxFit.cover,
+                                            ),
+                                            ),
+                                            
                                   ),
                                 )),
                           ),
