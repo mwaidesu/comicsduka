@@ -1,18 +1,14 @@
 // ignore_for_file: prefer_const_constructors
-
-// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:ui';
 
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:comicsduka/models/category_model/category_model.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
-// import 'package:comicsduka/screens/auth_ui/sign_up/sign_up.dart';
 import 'package:comicsduka/screens/category_view/category_view.dart';
 import 'package:comicsduka/screens/product_details/product_details.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
