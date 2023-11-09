@@ -159,20 +159,17 @@ class _HomeState extends State<Home> {
                                               context: context);
                                         },
                                         child: GridTile(
-                                          // footer: Container(
-                                          //   color: Colors.white70,
+                                          footer: Container(
+                                            color: Colors.white70,
 
-                                          //   child: ListTile(
-                                          //     leading: Text(
-                                          //       singleProduct.name,
-                                          //       style: TextStyle(
-                                          //           fontWeight: FontWeight.bold),
-                                          //     ),
-                                          //     title: Text(
-                                          //         "${singleProduct.price}"),
-                                          //     subtitle: Text(""),
-                                          //   ),
-                                          // ),
+                                            child: ListTile(
+                                              leading: Text(
+                                                "KSh. ${singleProduct.price}",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
                                           child: Image.network(
                                             singleProduct.image,
                                             fit: BoxFit.cover,
