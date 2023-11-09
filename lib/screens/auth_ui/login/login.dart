@@ -41,7 +41,7 @@ class _LoginState extends State<Login> {
               TextFormField(
                 controller: email,
                 decoration: const InputDecoration(
-                  hintText: "Enter Your Email",
+                  hintText: "test@gmail.com",
                   prefixIcon: Icon(
                     Icons.email_outlined,
                   ),
@@ -55,7 +55,7 @@ class _LoginState extends State<Login> {
                 controller: password,
                 obscureText: isShowPassword,
                 decoration: InputDecoration(
-                  hintText: "Enter Your Password",
+                  hintText: "testpassword",
                   prefixIcon: const Icon(
                     Icons.password_outlined,
                   ),
