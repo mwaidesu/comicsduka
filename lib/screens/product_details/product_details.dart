@@ -57,7 +57,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ],
             ),
 
-          Text("Ksh. ${widget.singleProduct.price}",
+          Text("Ksh. ${widget.singleProduct.price.toStringAsFixed(2)}",
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,

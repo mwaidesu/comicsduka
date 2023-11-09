@@ -7,9 +7,11 @@ import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:comicsduka/models/category_model/category_model.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
-import 'package:comicsduka/screens/auth_ui/sign_up/sign_up.dart';
+// import 'package:comicsduka/screens/auth_ui/sign_up/sign_up.dart';
+import 'package:comicsduka/screens/category_view/category_view.dart';
 import 'package:comicsduka/screens/product_details/product_details.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -96,15 +98,24 @@ class _HomeState extends State<Home> {
                           .map(
                             (e) => Padding(
                               padding: const EdgeInsets.only(left: 8.0),
-                              child: Card(
-                                color: Colors.white,
-                                elevation: 3.0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0)),
-                                child: Container(
-                                  height: 120,
-                                  width: 100,
-                                  child: Image.network(e.image),
+                              child: CupertinoButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  Routes.instance.push(
+                                      widget: CategoryView(categoryModel: e),
+                                      context: context);
+                                },
+                                child: Card(
+                                  color: Colors.white,
+                                  elevation: 3.0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  child: Container(
+                                    height: 120,
+                                    width: 100,
+                                    child: Image.network(e.image),
+                                  ),
                                 ),
                               ),
                             ),
@@ -115,7 +126,6 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: 12.0,
                   ),
-
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: const Text(
@@ -124,7 +134,6 @@ class _HomeState extends State<Home> {
                           fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
                   ),
-
                   productModelList.isEmpty
                       ? Center(
                           child: Text("No Comics Currently"),
@@ -155,18 +164,20 @@ class _HomeState extends State<Home> {
                                       child: InkWell(
                                         onTap: () {
                                           Routes.instance.push(
-                                              widget: ProductDetails(singleProduct: singleProduct,),
+                                              widget: ProductDetails(
+                                                singleProduct: singleProduct,
+                                              ),
                                               context: context);
                                         },
                                         child: GridTile(
                                           footer: Container(
                                             color: Colors.white70,
-
                                             child: ListTile(
                                               leading: Text(
-                                                "KSh. ${singleProduct.price}",
+                                                "KSh. ${singleProduct.price.toStringAsFixed(2)}",
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ),
                                           ),
