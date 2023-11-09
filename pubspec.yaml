@@ -51,7 +51,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.1
 
 flutter_launcher_icons:
-  image_path: "assets/images/book.png"
+  image_path: "assets/images/comicbubble.png"
   android: true
   ios: true
   remove_alpha_ios: true
