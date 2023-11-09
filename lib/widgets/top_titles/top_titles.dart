@@ -11,8 +11,9 @@ class TopTitles extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
-          height: kToolbarHeight + 12,
-          // height: 12,
+          height: kToolbarHeight-24,
+          //  height: kToolbarHeight+12,
+          // height: 24,
         ),
         if (title == "Login" || title == "Create Account")
           GestureDetector(
