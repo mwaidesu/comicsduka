@@ -1,4 +1,6 @@
+import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
+import 'package:comicsduka/screens/cart_screen/cart_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,10 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Routes.instance
+                  .push(widget: const CartScreen(), context: context);
+            },
             icon: const Icon(Icons.shopping_cart),
           )
         ],
@@ -56,13 +61,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                         : Icons.favorite_border))
               ],
             ),
-
-          Text("Ksh. ${widget.singleProduct.price.toStringAsFixed(2)}",
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-          ),
+            Text(
+              "Ksh. ${widget.singleProduct.price.toStringAsFixed(2)}",
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(
               height: 12.0,
             ),
@@ -132,9 +137,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
               ],
             ),
-                            const SizedBox(
-                  height: 24.0,
-                ),
+            const SizedBox(
+              height: 24.0,
+            ),
           ],
         ),
       ),
