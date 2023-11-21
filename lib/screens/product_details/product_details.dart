@@ -1,8 +1,11 @@
+import 'package:comicsduka/constants/constants.dart';
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
+import 'package:comicsduka/provider/app_provider.dart';
 import 'package:comicsduka/screens/cart_screen/cart_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   final ProductModel singleProduct;
@@ -121,7 +124,11 @@ class _ProductDetailsState extends State<ProductDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    AppProvider appProvider = Provider.of<AppProvider>(context, listen:false);
+                    appProvider.addCartProduct(widget.singleProduct);
+                    showMessage("Added to Cart");
+                  },
                   child: const Text("A D D  T O  C A R T"),
                 ),
                 // const SizedBox(

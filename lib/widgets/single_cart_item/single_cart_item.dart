@@ -1,17 +1,19 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:comicsduka/models/product_model/product_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SingleCartItem extends StatefulWidget {
-  const SingleCartItem({super.key});
+  final ProductModel singleProduct;
+  const SingleCartItem({super.key, required this.singleProduct});
 
   @override
   State<SingleCartItem> createState() => _SingleCartItemState();
 }
 
 class _SingleCartItemState extends State<SingleCartItem> {
-  int qty = 0;
+  int qty = 1;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +36,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
             child: Container(
               height: 180,
               child: Image.network(
-                "https://cdn4.vectorstock.com/i/1000x1000/18/88/comic-book-cover-comics-books-title-page-funny-vector-23571888.jpg",
+                widget.singleProduct.image,
                 fit: BoxFit.cover,
               ),
               // color: Colors.red.withOpacity(0.8)
@@ -47,7 +49,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
               height: 180,
               // color: Colors.red.withOpacity(0.8)
               child: Padding(
-                padding: const EdgeInsets.only(right: 8.0, left: 8.0, top:8.0),
+                padding: const EdgeInsets.only(right: 8.0, left: 8.0, top: 8.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -55,7 +57,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Batman v Superman",
+                            widget.singleProduct.name,
                             style: TextStyle(
                               fontSize: 25.0,
                               fontWeight: FontWeight.bold,
@@ -65,7 +67,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
                             height: 8.0,
                           ),
                           Text(
-                            "KSh. 500",
+                            "Ksh. ${widget.singleProduct.price.toStringAsFixed(2)}",
                             style: TextStyle(
                               fontSize: 17.0,
                               color: Colors.black54,

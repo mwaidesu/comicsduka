@@ -5,9 +5,10 @@ import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:comicsduka/models/category_model/category_model.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
+import 'package:comicsduka/screens/cart_screen/cart_screen.dart';
 import 'package:comicsduka/screens/category_view/category_view.dart';
 import 'package:comicsduka/screens/product_details/product_details.dart';
-import 'package:comicsduka/widgets/top_titles/top_titles.dart';
+// import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,25 @@ class _HomeState extends State<Home> {
     final double itemWidth = size.width / 2;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "ComicsDuka",
+          style: TextStyle(color: Colors.black),
+        ),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Routes.instance.push(widget: CartScreen(), context: context);
+                },
+                child: Icon(
+                  Icons.shopping_cart,
+                  size: 26.0,
+                ),
+              )),
+        ],
+      ),
       body: isLoading
           ? Center(
               child: Container(
@@ -69,7 +89,8 @@ class _HomeState extends State<Home> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const TopTitles(title: "Comics Duka", subtitle: ""),
+                        // const TopTitles(title: "Comics Duka", subtitle: ""),
+
                         TextFormField(
                           decoration: InputDecoration(
                             hintText: "Search...",
@@ -104,9 +125,9 @@ class _HomeState extends State<Home> {
                                 child: Card(
                                   color: Colors.white,
                                   elevation: 3.0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
+                                  // shape: RoundedRectangleBorder(
+                                  //     borderRadius:
+                                  //         BorderRadius.circular(20.0)),
                                   child: Container(
                                     height: 120,
                                     width: 100,
