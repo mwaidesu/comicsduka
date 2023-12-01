@@ -4,6 +4,7 @@ import 'package:comicsduka/constants/theme.dart';
 import 'package:comicsduka/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:comicsduka/firebase_helper/firebase_options/firebase_options.dart';
 import 'package:comicsduka/provider/app_provider.dart';
+import 'package:comicsduka/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:comicsduka/screens/home/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -35,11 +36,11 @@ class MyApp extends StatelessWidget {
               stream: FirebaseAuthHelper.instance.getAuthChange,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return const Home();
+                  return const CustomBottomBar();
                 } else{
                   return const Welcome();
                 }
-              }),
+              },),
       ),
     );
   }

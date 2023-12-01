@@ -160,8 +160,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     width: 140,
                     child: ElevatedButton(
                       onPressed: () {
-                        Routes.instance.push(
-                            widget: const FavouriteScreen(), context: context);
+                        // Routes.instance.push(
+                        //     widget: const FavouriteScreen(), context: context);
                       },
                       child: const Text(" B U Y"),
                     ),
