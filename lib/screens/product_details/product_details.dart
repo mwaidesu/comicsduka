@@ -169,7 +169,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ],
               ),
               const SizedBox(
-                height: 24.0,
+                height: 48.0,
               ),
             ],
           ),

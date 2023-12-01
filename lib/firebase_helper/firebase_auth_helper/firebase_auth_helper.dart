@@ -46,7 +46,24 @@ class FirebaseAuthHelper {
     }
   }
 
-  void signOut() async {
+  signOut() async {
     await _auth.signOut();
+  }
+
+   Future<bool> changePassword(
+      String password, BuildContext context) async {
+    try {
+      showLoaderDialog(context);
+      _auth.currentUser!.updatePassword(password);
+      Navigator.of(context,rootNavigator: true).pop();
+      showMessage("Password Changed");
+      Navigator.of(context).pop();
+
+      return true;
+    } on FirebaseAuthException catch (error) {
+      Navigator.of(context,rootNavigator: true).pop();
+      showMessage(error.code.toString());
+      return false;
+    }
   }
 }

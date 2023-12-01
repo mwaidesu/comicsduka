@@ -7,6 +7,7 @@ import 'package:comicsduka/widgets/primary_button/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../edit_screen/edit_screen.dart';
 import '../favourite_screen/favourite_screen.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -50,7 +51,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         radius: 60,
                       ),
                 Text(
-                  appProvider.getUserInformation.email,
+                  appProvider.getUserInformation.name,
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -67,8 +68,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   child: PrimaryButton(
                     title: "Edit Profile",
                     onPressed: () {
-                      // Routes.instance
-                      //     .push(widget: const EditProfile(), context: context);
+                      Routes.instance
+                          .push(widget: const EditProfile(), context: context);
                     },
                   ),
                 )
