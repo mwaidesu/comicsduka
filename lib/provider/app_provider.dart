@@ -21,14 +21,14 @@ class AppProvider with ChangeNotifier {
   final List<ProductModel> _favouriteProductList = [];
 
   void addFavouriteProduct(ProductModel productModel) {
-    _cartProductList.add(productModel);
+    _favouriteProductList.add(productModel);
     notifyListeners();
   }
 
   void removeFavouriteProduct(ProductModel productModel) {
-    _cartProductList.remove(productModel);
+    _favouriteProductList.remove(productModel);
     notifyListeners();
   }
 
-  List<ProductModel> get getFavouriteProductList => _cartProductList;
+  List<ProductModel> get getFavouriteProductList => _favouriteProductList;
 }

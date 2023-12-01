@@ -20,16 +20,16 @@ class _SingleCartItemState extends State<SingleCartItem> {
   int qty = 1;
   @override
   void initState() {
-    qty = widget.singleProduct.qty??1;
-    setState(() {
-      
-    });
+    qty = widget.singleProduct.qty ?? 1;
+    setState(() {});
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(
+      context,
+    );
     return Container(
       margin: const EdgeInsets.only(bottom: 12.0),
       decoration: BoxDecoration(
@@ -131,21 +131,33 @@ class _SingleCartItemState extends State<SingleCartItem> {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               CupertinoButton(
-                                onPressed: () {},
-                                child: Text("Add to Wishlist"),
+                                onPressed: () {
+                                  if (!appProvider.getFavouriteProductList
+                                      .contains(widget.singleProduct)) {
+                                    appProvider.addFavouriteProduct(
+                                        widget.singleProduct);
+                                    showMessage("${widget.singleProduct.name} :Added to Wishlist");
+                                  } else {
+                                    appProvider.removeFavouriteProduct(
+                                        widget.singleProduct);
+                                    showMessage("${widget.singleProduct.name} :Removed from Wishlist");
+                                  }
+                                },
+                                child: Text(appProvider.getFavouriteProductList
+                                        .contains(widget.singleProduct)
+                                    ? "Remove from wishlist"
+                                    : "Add to Wishlist"),
                               ),
                               IconButton(
                                 //delete button
                                 onPressed: () {
-                                  AppProvider appProvider =
-                                      Provider.of<AppProvider>(context,
-                                          listen: false);
                                   appProvider
                                       .removeCartProduct(widget.singleProduct);
-                                  showMessage( "${widget.singleProduct.name} :Removed from Cart");
+                                  showMessage(
+                                      "${widget.singleProduct.name} :Removed from Cart");
                                 },
                                 icon: Icon(
                                   Icons.delete,

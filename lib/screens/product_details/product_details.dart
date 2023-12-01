@@ -63,17 +63,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                         });
                         if (widget.singleProduct.isFavorite) {
                           appProvider.addFavouriteProduct(widget.singleProduct);
-                          // Routes.instance.push(
-                          //     widget: const FavouriteScreen(),
-                          //     context: context);
-                          // showMessage()
+                          showMessage(
+                              "${widget.singleProduct.name} :Added to Wishlist");
                         } else {
                           appProvider
                               .removeFavouriteProduct(widget.singleProduct);
-                          // showMessage(message)
+                               showMessage(
+                              "${widget.singleProduct.name} :Removed from Wishlist");
                         }
                       },
-                      icon: Icon(appProvider.getFavouriteProductList.contains(widget.singleProduct)
+                      icon: Icon(appProvider.getFavouriteProductList
+                              .contains(widget.singleProduct)
                           ? Icons.favorite
                           : Icons.favorite_border))
                 ],
@@ -160,8 +160,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     width: 140,
                     child: ElevatedButton(
                       onPressed: () {
-                        Routes.instance
-                            .push(widget: const FavouriteScreen(), context: context);
+                        Routes.instance.push(
+                            widget: const FavouriteScreen(), context: context);
                       },
                       child: const Text(" B U Y"),
                     ),
