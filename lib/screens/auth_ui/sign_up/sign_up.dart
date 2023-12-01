@@ -3,6 +3,7 @@
 import 'package:comicsduka/constants/constants.dart';
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/screens/auth_ui/login/login.dart';
+import 'package:comicsduka/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:comicsduka/screens/home/home.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
@@ -114,11 +115,11 @@ class _SignUpState extends State<SignUp> {
 
                   if (isValidated) {
                     bool isLoggedIn = await FirebaseAuthHelper.instance
-                        .signUp (email.text, password.text, context);
+                        .signUp (name.text, email.text, password.text, context);
 
                     if (isLoggedIn) {
                       Routes.instance.pushAndRemoveUntil(
-                          widget: const Home(), context: context);
+                          widget: const CustomBottomBar(), context: context);
                     }
                   }
                 },

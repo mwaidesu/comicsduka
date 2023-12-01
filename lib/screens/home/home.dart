@@ -5,12 +5,16 @@ import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:comicsduka/models/category_model/category_model.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
+import 'package:comicsduka/provider/app_provider.dart';
 import 'package:comicsduka/screens/cart_screen/cart_screen.dart';
 import 'package:comicsduka/screens/category_view/category_view.dart';
 import 'package:comicsduka/screens/product_details/product_details.dart';
 // import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -25,8 +29,10 @@ class _HomeState extends State<Home> {
 
   bool isLoading = false;
 
-  @override
+  @override 
   void initState() {
+    AppProvider appProvider = Provider.of<AppProvider>(context,listen: false);
+    appProvider.getUserInfoFirebase();
     getCategoryList();
     super.initState();
   }
@@ -62,9 +68,12 @@ class _HomeState extends State<Home> {
               child: GestureDetector(
                 onTap: () {
                   Routes.instance.push(widget: CartScreen(), context: context);
+                // FirebaseAuthHelper.instance.signOut();
+
+                //     setState(() {});
                 },
                 child: Icon(
-                  Icons.shopping_cart,
+                  Icons.shopping_cart_checkout_outlined,
                   size: 26.0,
                 ),
               )),

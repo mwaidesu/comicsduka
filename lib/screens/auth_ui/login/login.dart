@@ -4,6 +4,7 @@ import 'package:comicsduka/constants/constants.dart';
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:comicsduka/screens/auth_ui/sign_up/sign_up.dart';
+import 'package:comicsduka/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:comicsduka/screens/home/home.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
@@ -88,7 +89,7 @@ class _LoginState extends State<Login> {
       
                     if (isLoggedIn) {
                       Routes.instance
-                          .pushAndRemoveUntil(widget: const Home(), context: context);
+                          .pushAndRemoveUntil(widget: const CustomBottomBar(), context: context);
                     }
                   }            
                 },
