@@ -3,6 +3,10 @@
 import 'package:comicsduka/models/product_model/product_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../constants/constants.dart';
+import '../../provider/app_provider.dart';
 
 class SingleCartItem extends StatefulWidget {
   final ProductModel singleProduct;
@@ -14,6 +18,16 @@ class SingleCartItem extends StatefulWidget {
 
 class _SingleCartItemState extends State<SingleCartItem> {
   int qty = 1;
+  @override
+  void initState() {
+    qty = widget.singleProduct.qty??1;
+    setState(() {
+      
+    });
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,24 +70,12 @@ class _SingleCartItemState extends State<SingleCartItem> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                widget.singleProduct.name,
-                                style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red[300],
-                                ),
-                              ),
-                            ],
+                          Text(
+                            widget.singleProduct.name,
+                            style: TextStyle(
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           SizedBox(
                             height: 8.0,
@@ -128,9 +130,29 @@ class _SingleCartItemState extends State<SingleCartItem> {
                               ),
                             ],
                           ),
-                          CupertinoButton(
-                            onPressed: () {},
-                            child: Text("Add to Wishlist"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CupertinoButton(
+                                onPressed: () {},
+                                child: Text("Add to Wishlist"),
+                              ),
+                              IconButton(
+                                //delete button
+                                onPressed: () {
+                                  AppProvider appProvider =
+                                      Provider.of<AppProvider>(context,
+                                          listen: false);
+                                  appProvider
+                                      .removeCartProduct(widget.singleProduct);
+                                  showMessage( "${widget.singleProduct.name} :Removed from Cart");
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red[300],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
