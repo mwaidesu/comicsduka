@@ -1,10 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:comicsduka/constants/constants.dart';
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
 import 'package:comicsduka/provider/app_provider.dart';
 import 'package:comicsduka/screens/buy_product/buy_product.dart';
 import 'package:comicsduka/screens/cart_screen/cart_screen.dart';
-import 'package:comicsduka/screens/favourite_screen/favourite_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(12.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +52,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 children: [
                   Text(
                     widget.singleProduct.name,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -161,8 +162,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                     width: 140,
                     child: ElevatedButton(
                       onPressed: () {
+                        Provider.of<AppProvider>(context, listen: false);
+                      ProductModel productModel =
+                          widget.singleProduct.copyWith(qty: qty);
                         Routes.instance.push(
-                            widget: const CheckOut(), context: context);
+                            widget: CheckOut(singleProduct: productModel), context: context);
                       },
                       child: const Text(" B U Y"),
                     ),

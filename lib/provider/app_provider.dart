@@ -14,7 +14,7 @@ import '../models/user_model/user_model.dart';
 class AppProvider with ChangeNotifier {
   //// Cart Work
   final List<ProductModel> _cartProductList = [];
-  // final List<ProductModel> _buyProductList = [];
+  final List<ProductModel> _buyProductList = [];
 
   UserModel? _userModel;
 
@@ -107,25 +107,25 @@ class AppProvider with ChangeNotifier {
   }
 //   ///////// BUY Product  / / // / / // / / / // /
 
-//   void addBuyProduct(ProductModel model) {
-//     _buyProductList.add(model);
-//     notifyListeners();
-//   }
+  void addBuyProduct(ProductModel model) {
+    _buyProductList.add(model);
+    notifyListeners();
+  }
 
-//   void addBuyProductCartList() {
-//     _buyProductList.addAll(_cartProductList);
-//     notifyListeners();
-//   }
+  void addBuyProductCartList() {
+    _buyProductList.addAll(_cartProductList);
+    notifyListeners();
+  }
 
-//   void clearCart() {
-//     _cartProductList.clear();
-//     notifyListeners();
-//   }
+  void clearCart() {
+    _cartProductList.clear();
+    notifyListeners();
+  }
 
-//   void clearBuyProduct() {
-//     _buyProductList.clear();
-//     notifyListeners();
-//   }
+  void clearBuyProduct() {
+    _buyProductList.clear();
+    notifyListeners();
+  }
 
-//   List<ProductModel> get getBuyProductList => _buyProductList;
+  List<ProductModel> get getBuyProductList => _buyProductList;
 }

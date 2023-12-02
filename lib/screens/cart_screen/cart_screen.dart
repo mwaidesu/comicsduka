@@ -2,6 +2,7 @@
 
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/screens/buy_product/buy_product.dart';
+import 'package:comicsduka/screens/cart_item_checkout/cart_item_checkout.dart';
 import 'package:comicsduka/widgets/single_cart_item/single_cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,10 +54,16 @@ class _CartScreenState extends State<CartScreen> {
                 height: 25.0,
               ),
               PrimaryButton(
-                title: "Checkout",
+                title: "Proceed to Checkout",
                 onPressed: () {
+                  appProvider.clearBuyProduct();
+                  appProvider.addBuyProductCartList();
+                  appProvider.clearCart();
                   Routes.instance
-                      .push(widget: CheckOut(), context: context);
+                      .push(widget: const CartItemCheckOut(), context: context);
+
+                  // Routes.instance
+                  //     .push(widget: CheckOut(), context: context);
                 },
               ),
             ],

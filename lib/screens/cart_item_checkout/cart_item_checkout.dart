@@ -10,15 +10,14 @@ import 'package:provider/provider.dart';
 
 import '../../models/product_model/product_model.dart';
 
-class CheckOut extends StatefulWidget {
-  final ProductModel singleProduct;
-  const CheckOut({super.key, required this.singleProduct});
+class CartItemCheckOut extends StatefulWidget {
+  const CartItemCheckOut({super.key,});
 
   @override
-  State<CheckOut> createState() => _CheckOutState();
+  State<CartItemCheckOut> createState() => _CartItemCheckOutState();
 }
 
-class _CheckOutState extends State<CheckOut> {
+class _CartItemCheckOutState extends State<CartItemCheckOut> {
   int groupValue = 2;
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _CheckOutState extends State<CheckOut> {
       //           ],
       //         ),
       //         SizedBox(height: 25.0,),
-      //         PrimaryButton(title: "Checkout", onPressed: (){},),
+      //         PrimaryButton(title: "CartItemCheckOut", onPressed: (){},),
       //       ],
       //     ),
       //   ),
@@ -60,7 +59,7 @@ class _CheckOutState extends State<CheckOut> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text(
-          " Checkout Screen",
+          " CartItemCheckOut Screen",
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -158,10 +157,10 @@ class _CheckOutState extends State<CheckOut> {
               height: 24.0,
             ),
             PrimaryButton(
-              title: "Complete Checkout",
+              title: "Complete CartItemCheckOut",
               onPressed: () async {
-                appProvider.getBuyProductList.clear();
-                appProvider.addBuyProduct(widget.singleProduct);
+                // appProvider.getBuyProductList.clear();
+                // appProvider.addBuyProduct(widget.singleProduct);
 
                 bool value = await FirebaseFirestoreHelper.instance
                     .uploadOrderedProductFirebase(
