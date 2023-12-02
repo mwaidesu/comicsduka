@@ -1,112 +1,195 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:comicsduka/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
-import 'package:comicsduka/provider/app_provider.dart';
-import 'package:comicsduka/widgets/single_cart_item/single_cart_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../../models/order_model/order_model.dart';
 
-class OrderScreen extends StatefulWidget {
+class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
 
   @override
-  State<OrderScreen> createState() => _OrderScreenState();
-}
-
-class _OrderScreenState extends State<OrderScreen> {
-  @override
   Widget build(BuildContext context) {
-    AppProvider appProvider = Provider.of<AppProvider>(
-      context,
-    );
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text(
-            " Your Orders",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text(
+          "Your Orders",
+          style: TextStyle(
+            color: Colors.black,
           ),
         ),
-        body: FutureBuilder(
-          future: FirebaseFirestoreHelper.instance.getUserOrder(context),
-          builder: ((context, snapshot) {
-
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            if (snapshot.data!.isEmpty || snapshot.data == null || !snapshot.hasData) {
-              return Center(
-                child: Text("No Orders",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.red[300]),),
-              );
-            }
-            return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  OrderModel orderModel = snapshot.data![index];
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ExpansionTile(
-                      collapsedShape: const RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.grey)
-                      ),
-                      title: Text(
-                        orderModel.products[0].name,
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.w500),
-                      ),
-                      children: 
-                      <Widget>[
-                        ListTile(
-                          title: Text(
-                            orderModel.payment,
-                            style: TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                          subtitle: Text(
+      ),
+      body: StreamBuilder(
+        stream: Stream.fromFuture(FirebaseFirestoreHelper.instance.getUserOrder(context)),
+        // future: FirebaseFirestoreHelper.instance.getUserOrder(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.data!.isEmpty ||
+              snapshot.data == null ||
+              !snapshot.hasData) {
+            return const Center(
+              child: Text("No Order Found"),
+            );
+          }
+          
+          return Padding(
+            padding: const EdgeInsets.only(bottom:50.0),
+            child: ListView.builder(
+              itemCount: snapshot.data!.length,
+              padding: const EdgeInsets.all(12.0),
+              itemBuilder: (context, index) {
+                OrderModel orderModel = snapshot.data![index];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: ExpansionTile(
+                    tilePadding: EdgeInsets.zero,
+                    collapsedShape:  RoundedRectangleBorder(
+                      side: BorderSide(color:Colors.grey, width: 2.3)),
+                        // side: BorderSide(color:Theme.of(context).primaryColor, width: 2.3)),
+                    shape:  RoundedRectangleBorder(
+                        side: BorderSide(color:Theme.of(context).primaryColor, width: 2.3)),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Container(
+                          height: 180,
+                          width: 120,
+                          // color:Theme.of(context).primaryColor.withOpacity(0.5),
+                          child: Image.network(
+                            orderModel.products[0].image,
                             
-                            "Ksh. ${orderModel.totalPrice.toString()}",
-                            style: TextStyle(fontWeight: FontWeight.w700),
                           ),
                         ),
-                        ListTile(
-                          title: Text(
-                            orderModel.status,
-                            style: TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                          subtitle: Text(
-                            "Order ID: ${orderModel.orderId}",
-                            style: TextStyle(fontWeight: FontWeight.w700),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                orderModel.products[0].name,
+                                style: const TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 12.0,
+                              ),
+                              orderModel.products.length > 1
+                                  ? SizedBox.fromSize()
+                                  : Column(
+                                      children: [
+                                        Text(
+                                          "Quanity: ${orderModel.products[0].qty.toString()}",
+                                          style: const TextStyle(
+                                            fontSize: 12.0,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 12.0,
+                                        ),
+                                      ],
+                                    ),
+                              Text(
+                                "Total Price: \$${orderModel.totalPrice.toString()}",
+                                style: const TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 12.0,
+                              ),
+                              Text(
+                                "Order Status: ${orderModel.status}",
+                                style: const TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                                                ListTile(
-                          title: Text(
-                            "Quantity: ${orderModel.products[0].qty.toString()}",
-                            style: TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                          // subtitle: Text(
-                          //   "Order ID: ${orderModel.orderId}",
-                          //   style: TextStyle(fontWeight: FontWeight.w700),
-                          // ),
-                        ),
-
                       ],
                     ),
-                  );
-                });
-          }),
-        ));
+                    children: orderModel.products.length > 1
+                        ? [
+                            const Text("Details"),
+                             Divider(color:Theme.of(context).primaryColor),
+                            ...orderModel.products.map((singleProduct) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 12.0, top: 6.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.baseline,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Container(
+                                          height: 120,
+                                          width: 80,
+                                          color:Theme.of(context).primaryColor.withOpacity(0.5),
+                                          child: Image.network(
+                                            singleProduct.image,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                singleProduct.name,
+                                                style: const TextStyle(
+                                                  fontSize: 12.0,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 12.0,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    "Quanity: ${singleProduct.qty.toString()}",
+                                                    style: const TextStyle(
+                                                      fontSize: 12.0,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 12.0,
+                                                  ),
+                                                ],
+                                              ),
+                                              Text(
+                                                "Price: \$${singleProduct.price.toString()}",
+                                                style: const TextStyle(
+                                                  fontSize: 12.0,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                     Divider(color: Theme.of(context).primaryColor),
+                                  ],
+                                ),
+                              );
+                            }).toList()
+                          ]
+                        : [],
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
   }
 }

@@ -11,7 +11,9 @@ import 'package:provider/provider.dart';
 import '../../models/product_model/product_model.dart';
 
 class CartItemCheckOut extends StatefulWidget {
-  const CartItemCheckOut({super.key,});
+  const CartItemCheckOut({
+    super.key,
+  });
 
   @override
   State<CartItemCheckOut> createState() => _CartItemCheckOutState();
@@ -59,7 +61,7 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text(
-          " CartItemCheckOut Screen",
+          "CheckOut Screen",
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -157,17 +159,20 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
               height: 24.0,
             ),
             PrimaryButton(
-              title: "Complete CartItemCheckOut",
+              title: "Complete CheckOut",
               onPressed: () async {
                 // appProvider.getBuyProductList.clear();
                 // appProvider.addBuyProduct(widget.singleProduct);
 
                 bool value = await FirebaseFirestoreHelper.instance
-                    .uploadOrderedProductFirebase(
-                        appProvider.getBuyProductList, context, groupValue ==1? "Cash on delivery": "Paid");
+                    .uploadOrderedProductFirebase(appProvider.getBuyProductList,
+                        context, groupValue == 1 ? "Cash on delivery" : "Paid");
+
+                appProvider.clearBuyProduct();
                 if (value) {
                   Future.delayed(Duration(seconds: 2), () {
-                    Routes.instance.push(widget: CustomBottomBar(), context: context);
+                    Routes.instance
+                        .push(widget: CustomBottomBar(), context: context);
                   });
                 }
               },
