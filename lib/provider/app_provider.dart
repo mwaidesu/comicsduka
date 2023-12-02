@@ -100,11 +100,11 @@ class AppProvider with ChangeNotifier {
 //     return totalPrice;
 //   }
 
-//   void updateQty(ProductModel productModel, int qty) {
-//     int index = _cartProductList.indexOf(productModel);
-//     _cartProductList[index].qty = qty;
-//     notifyListeners();
-//   }
+  void updateQty(ProductModel productModel, int qty) {
+    int index = _cartProductList.indexOf(productModel);
+    _cartProductList[index].qty = qty;
+    notifyListeners();
+  }
 //   ///////// BUY Product  / / // / / // / / / // /
 
 //   void addBuyProduct(ProductModel model) {

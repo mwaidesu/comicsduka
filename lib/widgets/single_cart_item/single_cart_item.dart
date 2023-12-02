@@ -95,6 +95,8 @@ class _SingleCartItemState extends State<SingleCartItem> {
                                     setState(() {
                                       qty--;
                                     });
+                                    appProvider.updateQty(
+                                      widget.singleProduct, qty);
                                   }
                                 },
                                 padding: EdgeInsets.zero,
@@ -121,6 +123,8 @@ class _SingleCartItemState extends State<SingleCartItem> {
                                   setState(() {
                                     qty++;
                                   });
+                                  appProvider.updateQty(
+                                      widget.singleProduct, qty);
                                 },
                                 padding: EdgeInsets.zero,
                                 child: const CircleAvatar(
@@ -139,17 +143,22 @@ class _SingleCartItemState extends State<SingleCartItem> {
                                       .contains(widget.singleProduct)) {
                                     appProvider.addFavouriteProduct(
                                         widget.singleProduct);
-                                    showMessage("${widget.singleProduct.name} :Added to Wishlist");
+                                    showMessage(
+                                        "${widget.singleProduct.name} :Added to Wishlist");
                                   } else {
                                     appProvider.removeFavouriteProduct(
                                         widget.singleProduct);
-                                    showMessage("${widget.singleProduct.name} :Removed from Wishlist");
+                                    showMessage(
+                                        "${widget.singleProduct.name} :Removed from Wishlist");
                                   }
                                 },
-                                child: Text(appProvider.getFavouriteProductList
-                                        .contains(widget.singleProduct)
-                                    ? "Remove From Wishlist"
-                                    : "Add to Wishlist", style: TextStyle(fontSize: 15),),
+                                child: Text(
+                                  appProvider.getFavouriteProductList
+                                          .contains(widget.singleProduct)
+                                      ? "Remove From Wishlist"
+                                      : "Add to Wishlist",
+                                  style: TextStyle(fontSize: 15),
+                                ),
                               ),
                               IconButton(
                                 //delete button
