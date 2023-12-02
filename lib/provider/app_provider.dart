@@ -84,13 +84,13 @@ class AppProvider with ChangeNotifier {
   }
 //   //////// TOTAL PRICE / // / // / / // / / / // /
 
-//   double totalPrice() {
-//     double totalPrice = 0.0;
-//     for (var element in _cartProductList) {
-//       totalPrice += element.price * element.qty!;
-//     }
-//     return totalPrice;
-//   }
+  double totalPrice() {
+    double totalPrice = 0.0;
+    for (var element in _cartProductList) {
+      totalPrice += element.price * element.qty!;
+    }
+    return totalPrice;
+  }
 
 //   double totalPriceBuyProductList() {
 //     double totalPrice = 0.0;
