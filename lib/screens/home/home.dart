@@ -29,9 +29,9 @@ class _HomeState extends State<Home> {
 
   bool isLoading = false;
 
-  @override 
+  @override
   void initState() {
-    AppProvider appProvider = Provider.of<AppProvider>(context,listen: false);
+    AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
     appProvider.getUserInfoFirebase();
     getCategoryList();
     super.initState();
@@ -41,6 +41,7 @@ class _HomeState extends State<Home> {
     setState(() {
       isLoading = true;
     });
+    FirebaseFirestoreHelper.instance.updateTokenFromFirebase();
     categoriesList = await FirebaseFirestoreHelper.instance.getCategories();
     productModelList = await FirebaseFirestoreHelper.instance.getBestProducts();
     // productModelList.shuffle();
@@ -68,9 +69,9 @@ class _HomeState extends State<Home> {
               child: GestureDetector(
                 onTap: () {
                   Routes.instance.push(widget: CartScreen(), context: context);
-                // FirebaseAuthHelper.instance.signOut();
+                  // FirebaseAuthHelper.instance.signOut();
 
-                //     setState(() {});
+                  //     setState(() {});
                 },
                 child: Icon(
                   Icons.shopping_cart_checkout_outlined,

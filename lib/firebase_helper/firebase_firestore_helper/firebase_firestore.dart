@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comicsduka/constants/constants.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/cupertino.dart';
@@ -138,15 +139,15 @@ class FirebaseFirestoreHelper {
     }
   }
 
-//   void updateTokenFromFirebase() async {
-//     String? token = await FirebaseMessaging.instance.getToken();
-//     if (token != null) {
-//       await _firebaseFirestore
-//           .collection("users")
-//           .doc(FirebaseAuth.instance.currentUser!.uid)
-//           .update({
-//         "notificationToken": token,
-//       });
-//     }
-  // }
+  void updateTokenFromFirebase() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    if (token != null) {
+      await _firebaseFirestore
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        "notificationToken": token,
+      });
+    }
+  }
 }

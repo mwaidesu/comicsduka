@@ -1,70 +1,37 @@
 // ignore_for_file: prefer_const_constructors
+
 import 'package:comicsduka/constants/routes.dart';
+import 'package:comicsduka/constants/stripe_helper/stripe_helper.dart';
 import 'package:comicsduka/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
 import 'package:comicsduka/provider/app_provider.dart';
 import 'package:comicsduka/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/product_model/product_model.dart';
-
-class CartItemCheckOut extends StatefulWidget {
-  const CartItemCheckOut({
+class CartItemCheckout extends StatefulWidget {
+  const CartItemCheckout({
     super.key,
   });
 
   @override
-  State<CartItemCheckOut> createState() => _CartItemCheckOutState();
+  State<CartItemCheckout> createState() => _CartItemCheckoutState();
 }
-
-class _CartItemCheckOutState extends State<CartItemCheckOut> {
-  int groupValue = 2;
+class _CartItemCheckoutState extends State<CartItemCheckout> {
+  int groupValue = 1;
   @override
   Widget build(BuildContext context) {
-    AppProvider appProvider = Provider.of<AppProvider>(context, listen: true);
+    AppProvider appProvider = Provider.of<AppProvider>(
+      context,
+    );
     return Scaffold(
-      // bottomNavigationBar: SizedBox(
-      //   height: 190,
-      //   child: Padding(
-      //     padding: const EdgeInsets.all(12.0),
-      //     child: Column(
-      //       children: [
-      //         Row(
-      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           children: const [
-      //             Text(
-      //               "Total Cost: ",
-      //               style: TextStyle(
-      //                 fontSize: 18.0,
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //             ),
-      //             Spacer(),
-      //             Text(
-      //               "Ksh. 600",
-      //               style: TextStyle(
-      //                 fontSize: 18.0,
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         SizedBox(height: 25.0,),
-      //         PrimaryButton(title: "CartItemCheckOut", onPressed: (){},),
-      //       ],
-      //     ),
-      //   ),
-      // ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text(
-          "CheckOut Screen",
+          "Checkout",
           style: TextStyle(
             color: Colors.black,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -72,7 +39,7 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 36.0,
             ),
             Container(
@@ -115,6 +82,9 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
                 ),
               ]),
             ),
+            // const SizedBox(
+            //   height: 24.0,
+            // ),
             Container(
               margin: EdgeInsets.all(8),
               height: 80,
@@ -155,28 +125,38 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
                 ),
               ]),
             ),
-            SizedBox(
+            const SizedBox(
               height: 24.0,
             ),
             PrimaryButton(
-              title: "Complete CheckOut",
+              title: "Complete Checkout",
               onPressed: () async {
-                // appProvider.getBuyProductList.clear();
-                // appProvider.addBuyProduct(widget.singleProduct);
+                if (groupValue == 1) {
+                  bool value = await FirebaseFirestoreHelper.instance
+                      .uploadOrderedProductFirebase(
+                          appProvider.getBuyProductList,
+                          context,
+                          "Cash on delivery");
 
-                bool value = await FirebaseFirestoreHelper.instance
-                    .uploadOrderedProductFirebase(appProvider.getBuyProductList,
-                        context, groupValue == 1 ? "Cash on delivery" : "Paid");
-
-                appProvider.clearBuyProduct();
-                if (value) {
-                  Future.delayed(Duration(seconds: 2), () {
-                    Routes.instance
-                        .push(widget: CustomBottomBar(), context: context);
-                  });
+                  appProvider.clearBuyProduct();
+                  if (value) {
+                    Future.delayed(const Duration(seconds: 2), () {
+                      Routes.instance.push(
+                          widget: const CustomBottomBar(), context: context);
+                    });
+                  }
+                } else {
+                 
+                  int value = double.parse(
+                          appProvider.totalPriceBuyProductList().toString())
+                      .round()
+                      .toInt();
+                  String totalPrice = (value * 100).toString();
+                  await StripeHelper.instance
+                      .makePayment(totalPrice.toString(), context);
                 }
               },
-            ),
+            )
           ],
         ),
       ),

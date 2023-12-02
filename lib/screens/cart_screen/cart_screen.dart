@@ -60,7 +60,7 @@ class _CartScreenState extends State<CartScreen> {
                   appProvider.addBuyProductCartList();
                   appProvider.clearCart();
                   Routes.instance
-                      .push(widget: const CartItemCheckOut(), context: context);
+                      .push(widget: const CartItemCheckout(), context: context);
 
                   // Routes.instance
                   //     .push(widget: CheckOut(), context: context);
