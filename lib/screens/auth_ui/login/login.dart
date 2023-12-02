@@ -1,11 +1,10 @@
-// ignore_for_file: unnecessary_const, use_build_context_synchronously
+// ignore_for_file: unnecessary_const, use_build_context_synchronously, prefer_const_constructors
 
 import 'package:comicsduka/constants/constants.dart';
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:comicsduka/screens/auth_ui/sign_up/sign_up.dart';
 import 'package:comicsduka/screens/custom_bottom_bar/custom_bottom_bar.dart';
-import 'package:comicsduka/screens/home/home.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
 import 'package:comicsduka/widgets/top_titles/top_titles.dart';
 import 'package:flutter/cupertino.dart';
@@ -106,7 +105,7 @@ class _LoginState extends State<Login> {
               Center(
                   child: CupertinoButton(
                       onPressed: () {
-                        Routes.instance.push(widget: SignUp(), context: context);
+                        Routes.instance.push(widget:SignUp(), context: context);
                       },
                       child: Text(
                         "Create an Account",

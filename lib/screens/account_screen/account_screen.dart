@@ -4,9 +4,11 @@ import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:comicsduka/provider/app_provider.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../change_password/change_password.dart';
 import '../edit_screen/edit_screen.dart';
 import '../favourite_screen/favourite_screen.dart';
 
@@ -18,6 +20,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(
@@ -44,8 +47,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         Icons.person_outline,
                         size: 120,
                       )
-                    : 
-                    CircleAvatar(
+                    : CircleAvatar(
                         backgroundImage:
                             NetworkImage(appProvider.getUserInformation.image!),
                         radius: 60,
@@ -106,15 +108,15 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
                 ListTile(
                   onTap: () {
-                    // Routes.instance
-                    //     .push(widget: const ChangePassword(), context: context);
+                    Routes.instance
+                        .push(widget: const ChangePassword(), context: context);
                   },
                   leading: const Icon(Icons.change_circle_outlined),
                   title: const Text("Change Password"),
                 ),
                 ListTile(
                   onTap: () {
-                    FirebaseAuthHelper.instance.signOut();
+                    FirebaseAuthHelper.instance.signOut(context);
 
                     setState(() {});
                   },
