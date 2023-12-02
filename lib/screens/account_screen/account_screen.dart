@@ -3,6 +3,7 @@
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:comicsduka/provider/app_provider.dart';
+import 'package:comicsduka/screens/order_screen/order_screen.dart';
 import 'package:comicsduka/widgets/primary_button/primary_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -84,8 +85,8 @@ class _AccountScreenState extends State<AccountScreen> {
               children: [
                 ListTile(
                   onTap: () {
-                    // Routes.instance
-                    //     .push(widget: const OrderScreen(), context: context);
+                    Routes.instance
+                        .push(widget: const OrderScreen(), context: context);
                   },
                   leading: const Icon(Icons.shopping_bag_outlined),
                   title: const Text("Your Orders"),
@@ -96,16 +97,16 @@ class _AccountScreenState extends State<AccountScreen> {
                         widget: const FavouriteScreen(), context: context);
                   },
                   leading: const Icon(Icons.favorite_outline),
-                  title: const Text("Favourite"),
+                  title: const Text("Wishlist"),
                 ),
-                ListTile(
-                  onTap: () {
-                    // Routes.instance
-                    //     .push(widget: const AboutUs(), context: context);
-                  },
-                  leading: const Icon(Icons.info_outline),
-                  title: const Text("About us"),
-                ),
+                // ListTile(
+                //   onTap: () {
+                //     // Routes.instance
+                //     //     .push(widget: const AboutUs(), context: context);
+                //   },
+                //   leading: const Icon(Icons.info_outline),
+                //   title: const Text("About us"),
+                // ),
                 ListTile(
                   onTap: () {
                     Routes.instance

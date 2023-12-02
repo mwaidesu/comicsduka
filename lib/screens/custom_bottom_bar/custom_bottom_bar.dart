@@ -1,4 +1,5 @@
 import 'package:comicsduka/screens/favourite_screen/favourite_screen.dart';
+import 'package:comicsduka/screens/order_screen/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -22,8 +23,8 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   List<Widget> _buildScreens() => [
         const Home(),
         const CartScreen(),
-        const FavouriteScreen(),
-        // const OrderScreen(),
+        // const FavouriteScreen(),
+        const OrderScreen(),
         const AccountScreen(),
       ];
 

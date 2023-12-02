@@ -148,8 +148,8 @@ class _SingleCartItemState extends State<SingleCartItem> {
                                 },
                                 child: Text(appProvider.getFavouriteProductList
                                         .contains(widget.singleProduct)
-                                    ? "Remove from wishlist"
-                                    : "Add to Wishlist"),
+                                    ? "Remove From Wishlist"
+                                    : "Add to Wishlist", style: TextStyle(fontSize: 15),),
                               ),
                               IconButton(
                                 //delete button

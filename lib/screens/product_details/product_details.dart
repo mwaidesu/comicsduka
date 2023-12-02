@@ -2,6 +2,7 @@ import 'package:comicsduka/constants/constants.dart';
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/models/product_model/product_model.dart';
 import 'package:comicsduka/provider/app_provider.dart';
+import 'package:comicsduka/screens/buy_product/buy_product.dart';
 import 'package:comicsduka/screens/cart_screen/cart_screen.dart';
 import 'package:comicsduka/screens/favourite_screen/favourite_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -160,8 +161,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     width: 140,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Routes.instance.push(
-                        //     widget: const FavouriteScreen(), context: context);
+                        Routes.instance.push(
+                            widget: const CheckOut(), context: context);
                       },
                       child: const Text(" B U Y"),
                     ),

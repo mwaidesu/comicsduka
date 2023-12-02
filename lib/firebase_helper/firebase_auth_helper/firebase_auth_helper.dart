@@ -52,19 +52,6 @@ class FirebaseAuthHelper {
     }
   }
 
-  // void signOut() async {
-  //   await _auth.signOut();
-
-  //   FirebaseAuth.instance.authStateChanges().listen((user) {
-  //     if (user == null) {
-  //       print('User signed out');
-        
-  //     } else {
-  //       print('User signed in: ${user.uid}');
-  //     }
-  //   });
-  // }
-
   void signOut(BuildContext context) async {
     await _auth.signOut();
 
