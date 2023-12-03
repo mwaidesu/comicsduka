@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:js';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comicsduka/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';

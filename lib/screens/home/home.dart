@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:ui';
 
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/firebase_helper/firebase_firestore_helper/firebase_firestore.dart';
@@ -49,6 +48,16 @@ class _HomeState extends State<Home> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  TextEditingController search = TextEditingController();
+  List<ProductModel> searchList = [];
+  void searchProducts(String value) {
+    productModelList
+        .where((element) =>
+            element.name.toLowerCase().contains(value.toLowerCase()))
+        .toList();
+    setState(() {});
   }
 
   Widget build(BuildContext context) {
@@ -102,6 +111,10 @@ class _HomeState extends State<Home> {
                         // const TopTitles(title: "Comics Duka", subtitle: ""),
 
                         TextFormField(
+                          controller: search,
+                          onChanged: (String value) {
+                            searchProducts(value);
+                          },
                           decoration: InputDecoration(
                             hintText: "Search...",
                             suffixIcon: Icon(Icons.search),
@@ -153,75 +166,153 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: 12.0,
                   ),
-                  Padding(
+                  !isSearched()? Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: const Text(
                       "Popular Comics",
                       style: TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  productModelList.isEmpty
+                  ):SizedBox.fromSize(),
+                  search.text.isNotEmpty && searchList.isEmpty
                       ? Center(
-                          child: Text("No Comics Currently"),
+                          child: Text("No Comics Available"),
                         )
-                      : Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: GridView.builder(
-                            physics: ScrollPhysics(),
-                            shrinkWrap: true,
-                            primary: false,
-                            itemCount: productModelList.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: (itemWidth / itemHeight),
-                            ),
-                            itemBuilder: (ctx, index) {
-                              ProductModel singleProduct =
-                                  productModelList[index];
+                      : searchList.isNotEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: GridView.builder(
+                                physics: ScrollPhysics(),
+                                shrinkWrap: true,
+                                primary: false,
+                                itemCount: searchList.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: (itemWidth / itemHeight),
+                                ),
+                                itemBuilder: (ctx, index) {
+                                  ProductModel singleProduct =
+                                      searchList[index];
 
-                              return Card(
-                                elevation: 5.0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0)),
-                                child: Hero(
-                                    tag: singleProduct.id,
-                                    child: Material(
-                                      child: InkWell(
-                                        onTap: () {
-                                          Routes.instance.push(
-                                              widget: ProductDetails(
-                                                singleProduct: singleProduct,
+                                  return Card(
+                                    elevation: 5.0,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0)),
+                                    child: Hero(
+                                        tag: singleProduct.id,
+                                        child: Material(
+                                          child: InkWell(
+                                            onTap: () {
+                                              Routes.instance.push(
+                                                  widget: ProductDetails(
+                                                    singleProduct:
+                                                        singleProduct,
+                                                  ),
+                                                  context: context);
+                                            },
+                                            child: GridTile(
+                                              footer: Container(
+                                                color: Colors.white70,
+                                                child: ListTile(
+                                                  leading: Text(
+                                                    "KSh. ${singleProduct.price.toStringAsFixed(2)}",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
                                               ),
-                                              context: context);
-                                        },
-                                        child: GridTile(
-                                          footer: Container(
-                                            color: Colors.white70,
-                                            child: ListTile(
-                                              leading: Text(
-                                                "KSh. ${singleProduct.price.toStringAsFixed(2)}",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                              child: Image.network(
+                                                singleProduct.image,
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
                                           ),
-                                          child: Image.network(
-                                            singleProduct.image,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                              );
-                            },
-                          ),
-                        ),
+                                        )),
+                                  );
+                                },
+                              ),
+                            )
+                          : productModelList.isEmpty
+                              ? Center(
+                                  child: Text("No Comics Currently"),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: GridView.builder(
+                                    physics: ScrollPhysics(),
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemCount: productModelList.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio:
+                                          (itemWidth / itemHeight),
+                                    ),
+                                    itemBuilder: (ctx, index) {
+                                      ProductModel singleProduct =
+                                          productModelList[index];
+
+                                      return Card(
+                                        elevation: 5.0,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0)),
+                                        child: Hero(
+                                            tag: singleProduct.id,
+                                            child: Material(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  Routes.instance.push(
+                                                      widget: ProductDetails(
+                                                        singleProduct:
+                                                            singleProduct,
+                                                      ),
+                                                      context: context);
+                                                },
+                                                child: GridTile(
+                                                  footer: Container(
+                                                    color: Colors.white70,
+                                                    child: ListTile(
+                                                      leading: Text(
+                                                        // "KSh. ${singleProduct.price.toStringAsFixed(2)}",
+                                                        singleProduct.name,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  child: Image.network(
+                                                    singleProduct.image,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            )),
+                                      );
+                                    },
+                                  ),
+                                ),
                 ],
               ),
             ),
     );
+  }
+
+  bool isSearched() {
+    if (search.text.isNotEmpty && searchList.isEmpty) {
+      return true;
+    } else if (search.text.isEmpty && searchList.isNotEmpty) {
+      return false;
+    } else if (searchList.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
