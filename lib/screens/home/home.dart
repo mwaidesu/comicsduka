@@ -52,13 +52,12 @@ class _HomeState extends State<Home> {
 
   TextEditingController search = TextEditingController();
   List<ProductModel> searchList = [];
-  void searchProducts(String value) {
-    productModelList
-        .where((element) =>
-            element.name.toLowerCase().contains(value.toLowerCase()))
-        .toList();
-    setState(() {});
-  }
+void searchProducts(String value) {
+  searchList = productModelList
+      .where((element) => element.name.toLowerCase().contains(value.toLowerCase()))
+      .toList();
+  setState(() {});
+}
 
   Widget build(BuildContext context) {
     //to set height of comic cards
