@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:comicsduka/constants/asset_images.dart';
 import 'package:comicsduka/constants/routes.dart';
 import 'package:comicsduka/screens/auth_ui/login/login.dart';
@@ -28,30 +30,6 @@ class Welcome extends StatelessWidget {
               AssetsImages.instance.welcomeImage,
             ),
           )),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     CupertinoButton(
-          //       onPressed: () {},
-          //       padding: EdgeInsets.zero,
-          //       child: Image.asset(
-          //         AssetsImages.instance.googleImage,
-          //         scale: 30.0,
-          //       ),
-          //     ),
-          //     const SizedBox(
-          //       width: 12.0,
-          //     ),
-          //     CupertinoButton(
-          //       onPressed: () {},
-          //       padding: EdgeInsets.zero,
-          //       child: Image.asset(
-          //         AssetsImages.instance.instagramImage,
-          //         scale: 30.0,
-          //       ),
-          //     ),
-          //   ],
-          // ),
           const SizedBox(
             height: 30.0,
           ),

@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-      
+
               const SizedBox(
                 height: 12.0,
               ),
@@ -81,16 +81,16 @@ class _LoginState extends State<Login> {
                 onPressed: () async {
                   bool isValidated = loginVaildation(email.text, password.text);
                   // print(email);
-      
+
                   if (isValidated) {
                     bool isLoggedIn = await FirebaseAuthHelper.instance
                         .login(email.text, password.text, context);
-      
+
                     if (isLoggedIn) {
-                      Routes.instance
-                          .pushAndRemoveUntil(widget: const CustomBottomBar(), context: context);
+                      Routes.instance.pushAndRemoveUntil(
+                          widget: const CustomBottomBar(), context: context);
                     }
-                  }            
+                  }
                 },
               ),
               const SizedBox(
@@ -105,7 +105,8 @@ class _LoginState extends State<Login> {
               Center(
                   child: CupertinoButton(
                       onPressed: () {
-                        Routes.instance.push(widget:SignUp(), context: context);
+                        Routes.instance
+                            .push(widget: SignUp(), context: context);
                       },
                       child: Text(
                         "Create an Account",

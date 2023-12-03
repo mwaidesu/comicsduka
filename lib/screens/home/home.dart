@@ -277,8 +277,8 @@ void searchProducts(String value) {
                                                     color: Colors.white70,
                                                     child: ListTile(
                                                       leading: Text(
-                                                        // "KSh. ${singleProduct.price.toStringAsFixed(2)}",
-                                                        singleProduct.name,
+                                                        "KSh. ${singleProduct.price.toStringAsFixed(2)}",
+                                                        // singleProduct.name,
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight

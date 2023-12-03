@@ -10,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/primary_button/primary_button.dart';
+
 class ProductDetails extends StatefulWidget {
   final ProductModel singleProduct;
   const ProductDetails({super.key, required this.singleProduct});
@@ -139,11 +141,24 @@ class _ProductDetailsState extends State<ProductDetails> {
               const SizedBox(
                 height: 30,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  OutlinedButton(
-                    onPressed: () {
+              // Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                // children: [
+                  // PrimaryButton(
+                    
+                  //   onPressed: () {
+                  //     appProvider =
+                  //         Provider.of<AppProvider>(context, listen: false);
+                  //     ProductModel productModel =
+                  //         widget.singleProduct.copyWith(qty: qty);
+                  //     appProvider.addCartProduct(productModel);
+                  //     showMessage(
+                  //         "${widget.singleProduct.name} :Added to Cart");
+                  //   },
+                  //   child: const Text("A D D  T O  C A R T"),
+                  // ),
+                  PrimaryButton(title: "A D D   T O  C A R T", 
+                                      onPressed: () {
                       appProvider =
                           Provider.of<AppProvider>(context, listen: false);
                       ProductModel productModel =
@@ -152,27 +167,26 @@ class _ProductDetailsState extends State<ProductDetails> {
                       showMessage(
                           "${widget.singleProduct.name} :Added to Cart");
                     },
-                    child: const Text("A D D  T O  C A R T"),
                   ),
                   // const SizedBox(
                   //   width: 24.0,
                   // ),
-                  SizedBox(
-                    height: 38,
-                    width: 140,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Provider.of<AppProvider>(context, listen: false);
-                      ProductModel productModel =
-                          widget.singleProduct.copyWith(qty: qty);
-                        Routes.instance.push(
-                            widget: CheckOut(singleProduct: productModel), context: context);
-                      },
-                      child: const Text(" B U Y"),
-                    ),
-                  ),
-                ],
-              ),
+                  // SizedBox(
+                  //   height: 38,
+                  //   width: 140,
+                  //   child: ElevatedButton(
+                  //     onPressed: () {
+                  //       Provider.of<AppProvider>(context, listen: false);
+                  //     ProductModel productModel =
+                  //         widget.singleProduct.copyWith(qty: qty);
+                  //       Routes.instance.push(
+                  //           widget: CheckOut(singleProduct: productModel), context: context);
+                  //     },
+                  //     child: const Text(" B U Y"),
+                  //   ),
+                  // ),
+              //   ],
+              // ),
               const SizedBox(
                 height: 48.0,
               ),

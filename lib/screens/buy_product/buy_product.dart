@@ -24,38 +24,6 @@ class _CheckOutState extends State<CheckOut> {
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(context, listen: true);
     return Scaffold(
-      // bottomNavigationBar: SizedBox(
-      //   height: 190,
-      //   child: Padding(
-      //     padding: const EdgeInsets.all(12.0),
-      //     child: Column(
-      //       children: [
-      //         Row(
-      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           children: const [
-      //             Text(
-      //               "Total Cost: ",
-      //               style: TextStyle(
-      //                 fontSize: 18.0,
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //             ),
-      //             Spacer(),
-      //             Text(
-      //               "Ksh. 600",
-      //               style: TextStyle(
-      //                 fontSize: 18.0,
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         SizedBox(height: 25.0,),
-      //         PrimaryButton(title: "Checkout", onPressed: (){},),
-      //       ],
-      //     ),
-      //   ),
-      // ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
